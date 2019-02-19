@@ -13,7 +13,7 @@ app.use(json())
 const dateLogger = (req, res, next) => {
   const date = new Date().toLocaleDateString()
   const time = new Date().toLocaleTimeString()
-  console.log(` ${req.method} ${req.path} ${date} ${time}`)
+  console.log(`${req.method} ${req.path} ran on ${date} at ${time}`)
   // next is crucial here. without it, we would never continue to our next middleware or callback function
   next()
 }
@@ -51,6 +51,22 @@ const viewCount = (req, res, next) => {
 // viewCount would not run on any other route unless we specified it to
 app.get(`/`, viewCount, (req, res) => {
   res.send(`${req.session.viewCount}`)
+})
+
+app.get(`/hello`, (req, res, next) => {
+  res.write('Hello ')
+  next()
+})
+app.get(`/hello`, (req, res, next) => {
+	res.write(`🌍`)
+	res.end()
+})
+
+// if you ever want to end a session before it expires, you can use the req.session.destroy method
+app.get(`/logout`, (req, res) => {
+	req.session.destroy(() => {
+		res.send(`logged out 👋`)
+	})
 })
 
 const PORT = process.env.SERVER_PORT
