@@ -28,7 +28,11 @@ app.use(dateLogger)
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  //setting the age of our cookie. This below will set it to one hour
+  cookie: {
+    maxAge: 1000 * 60 * 60
+  }
 }))
 
 //custom viewCount middleware that logs the count of times someone has viewed the route
