@@ -3,6 +3,7 @@ const express = require('express')
 require('dotenv').config()
 const session = require('express-session')
 const app = express()
+const {SERVER_PORT, SESSION_SECRET} = process.env
 
 //middleware
 app.use(express.json())
@@ -23,7 +24,7 @@ app.use(dateLogger)
 // saveUninitialized defaults to true. Set this to false so you aren't auto create a session
 // there are many other options availabe in the session object but these are pretty standard ones
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   //setting the age of our cookie. This below will set it to one hour
@@ -61,5 +62,5 @@ app.get(`/logout`, (req, res) => {
 	})
 })
 
-const PORT = process.env.SERVER_PORT
+const PORT = SERVER_PORT
 app.listen(PORT, () => console.log(`the magic is happening on ${PORT}`))
