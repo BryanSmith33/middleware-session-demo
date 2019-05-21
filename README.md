@@ -27,7 +27,10 @@ We will use the session middleware on our entire app. It takes in an object with
   app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUnitialized: false
+    saveUnitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60
+    }
   }))
 ```
 
