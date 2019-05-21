@@ -36,4 +36,5 @@ We will use the session middleware on our entire app. It takes in an object with
 
 * **secret** - Our super secret phrase of random words
 * **resave** - Saves our session everytime, with or without change. Defaults to true. We put false so the session is only saved when something is modified on the session (like viewCount)
-* **saveUnitialized** - Will automatically create a session without the users consent. Illegal in the UK.
+* **saveUnitialized** - Will automatically create a session without the users consent. Illegal in the Europe.
+* **cookie** - Allows us to set up different configuration options for our cookie. The one we are most concerned with is `maxAge`
