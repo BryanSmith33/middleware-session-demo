@@ -1,14 +1,11 @@
 // importing files and packages from npm
 const express = require('express')
 require('dotenv').config()
-// destructuing json off of body-parser
-// this is similar to import React, {Component} from 'react'
-const { json } = require('body-parser')
 const session = require('express-session')
 const app = express()
 
 //middleware
-app.use(json())
+app.use(express.json())
 // custom datelogger middleware that simply logs the request/endpoint and the date and time
 const dateLogger = (req, res, next) => {
   const date = new Date().toLocaleDateString()
@@ -55,15 +52,6 @@ const viewCount = (req, res, next) => {
 // viewCount would not run on any other route unless we specified it to
 app.get(`/`, viewCount, (req, res) => {
   res.send(`${req.session.viewCount}`)
-})
-
-app.get(`/hello`, (req, res, next) => {
-  res.write('Hello ')
-  next()
-})
-app.get(`/hello`, (req, res, next) => {
-	res.write(`🌍`)
-	res.end()
 })
 
 // if you ever want to end a session before it expires, you can use the req.session.destroy method
